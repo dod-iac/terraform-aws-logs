@@ -100,6 +100,12 @@ variable "allow_elb" {
   type        = bool
 }
 
+variable "allow_guardduty" {
+  description = "Allow GuardDuty service to log to bucket."
+  default     = false
+  type        = bool
+}
+
 variable "allow_redshift" {
   description = "Allow Redshift service to log to bucket."
   default     = false
@@ -182,4 +188,10 @@ variable "enable_versioning" {
   description = "A bool that enables versioning for the log bucket."
   default     = false
   type        = bool
+}
+
+variable "guardduty_logs_prefixes" {
+  description = "S3 key prefixes for GuardDuty logs."
+  default     = ["guardduty"]
+  type        = list(string)
 }

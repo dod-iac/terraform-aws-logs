@@ -100,6 +100,23 @@ module "aws_logs" {
 |------|---------|
 | aws | >= 3.0 |
 
+## Modules
+
+No Modules.
+
+## Resources
+
+| Name |
+|------|
+| [aws_caller_identity](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) |
+| [aws_elb_service_account](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/elb_service_account) |
+| [aws_iam_policy_document](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) |
+| [aws_partition](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) |
+| [aws_redshift_service_account](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/redshift_service_account) |
+| [aws_region](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) |
+| [aws_s3_bucket](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket) |
+| [aws_s3_bucket_public_access_block](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_public_access_block) |
+
 ## Inputs
 
 | Name | Description | Type | Default | Required |
@@ -111,6 +128,7 @@ module "aws_logs" {
 | allow\_cloudwatch | Allow Cloudwatch service to export logs to bucket. | `bool` | `false` | no |
 | allow\_config | Allow Config service to log to bucket. | `bool` | `false` | no |
 | allow\_elb | Allow ELB service to log to bucket. | `bool` | `false` | no |
+| allow\_guardduty | Allow GuardDuty service to log to bucket. | `bool` | `false` | no |
 | allow\_nlb | Allow NLB service to log to bucket. | `bool` | `false` | no |
 | allow\_redshift | Allow Redshift service to log to bucket. | `bool` | `false` | no |
 | cloudtrail\_accounts | List of accounts for CloudTrail logs.  By default limits to the current account. | `list(string)` | `[]` | no |
@@ -125,6 +143,7 @@ module "aws_logs" {
 | elb\_logs\_prefix | S3 prefix for ELB logs. | `string` | `"elb"` | no |
 | enable\_versioning | A bool that enables versioning for the log bucket. | `bool` | `false` | no |
 | force\_destroy | A bool that indicates all objects (including any locked objects) should be deleted from the bucket so the bucket can be destroyed without error. | `bool` | `false` | no |
+| guardduty\_logs\_prefixes | S3 key prefixes for GuardDuty logs. | `list(string)` | <pre>[<br>  "guardduty"<br>]</pre> | no |
 | logging\_target\_bucket | S3 Bucket to send S3 logs to. Disables logging if omitted. | `string` | `null` | no |
 | logging\_target\_prefix | Prefix for logs going into the log\_s3\_bucket. | `string` | `"s3/"` | no |
 | nlb\_account | Account for NLB logs.  By default limits to the current account. | `string` | `""` | no |
@@ -144,7 +163,6 @@ module "aws_logs" {
 | configs\_logs\_path | S3 path for Config logs. |
 | elb\_logs\_path | S3 path for ELB logs. |
 | redshift\_logs\_path | S3 path for RedShift logs. |
-
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## Upgrade Paths
