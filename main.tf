@@ -385,6 +385,22 @@ data "aws_iam_policy_document" "main" {
     }
   }
 
+  statement {
+    sid    = "guardduty-logs-deny-unencrypted"
+    effect = "Deny"
+    principals {
+      type        = "Service"
+      identifiers = ["guardduty.amazonaws.com"]
+    }
+    actions   = ["s3:PutObject"]
+    resources = local.guardduty_resources
+    condition {
+      test     = "StringNotEquals"
+      variable = "s3:x-amz-server-side-encryption"
+      values   = ["aws:kms"]
+    }
+  }
+
   #
   # Enforce TLS requests only
   #
